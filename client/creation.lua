@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 isCreatingGang = false
 hasStash = false
 hasGarage = false

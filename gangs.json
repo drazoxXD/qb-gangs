@@ -1,9 +1,6 @@
 {
-  "none": {
-    "label": "No Gang"
-  },
-  "ballas": {
-    "label": "Ballas"
+  "vagos": {
+    "label": "Vagos"
   },
   "marabunta": {
     "label": "Marabunta"
@@ -14,10 +11,22 @@
   "thefamily": {
     "label": "The Family"
   },
-  "vagos": {
-    "label": "Vagos"
+  "volk": {
+    "label": "Volk Maffia"
+  },
+  "ballas": {
+    "label": "Ballas"
   },
   "lost": {
     "label": "The Lost MC"
+  },
+  "grove": {
+    "label": "GroveStreet-Families"
+  },
+  "seaside": {
+    "label": "Seaside"
+  },
+  "none": {
+    "label": "Nincs bandában"
   }
 }

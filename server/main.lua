@@ -1,4 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
 
 QBCore.Functions.CreateCallback("qb-gangs:server:FetchConfig", function(source, cb)
     cb(json.decode(LoadResourceFile(GetCurrentResourceName(), "config.json")))
@@ -15,7 +16,6 @@ end, "admin")
 RegisterServerEvent("qb-gangs:server:creategang", function(newGang, gangName, gangLabel)
     local permission = QBCore.Functions.GetPermission(source)
 
-    if permission == "admin" or permission == "god" then
         local gangConfig = json.decode(LoadResourceFile(GetCurrentResourceName(), "config.json"))
         gangConfig[gangName] = newGang
 
@@ -32,9 +32,7 @@ RegisterServerEvent("qb-gangs:server:creategang", function(newGang, gangName, ga
         TriggerEvent("QBCore:Server:UpdateGangs", gangs)
 
         TriggerClientEvent("QBCore:Notify", source, "Gang: "..gangName.." successfully Created", "success")
-    else
-        QBCore.Functions.Kick(source, "Attempting to place create a gang")
-    end
+
 end)
 
 function has_value (tab, val)
@@ -47,12 +45,13 @@ function has_value (tab, val)
     return false
 end
 
-QBCore.Commands.Add("invitegang", "Invite a player into your gang", {{name = "ID", help = "Player ID"}}, true, function(source, args)
+
+QBCore.Commands.Add("invitegang", "Játékos meghívása a bandádba", {{name = "ID", help = "Játékos ID"}}, true, function(source, args)
     local Player = QBCore.Functions.GetPlayer(source)
     local gang = Player.PlayerData.gang.name
 
     if gang == "none" then 
-        TriggerClientEvent("QBCore:Notify", source, "You are not in a gang", "error")
+        TriggerClientEvent("QBCore:Notify", source, "Te nem vagy bandában", "error")
         return 
     end
     if Config["GangLeaders"][gang] ~= nil and has_value(Config["GangLeaders"][gang], Player.PlayerData.citizenid) then
@@ -62,22 +61,23 @@ QBCore.Commands.Add("invitegang", "Invite a player into your gang", {{name = "ID
         local OtherPlayer = QBCore.Functions.GetPlayer(id)
         if OtherPlayer ~= nil then
             OtherPlayer.Functions.SetGang(gang)
-            TriggerClientEvent("QBCore:Notify", source, ("%s has been invited into your gang"):format(GetPlayerName(id)))
-            TriggerClientEvent("QBCore:Notify", id, ("%s has invited into you to %s"):format(GetPlayerName(source), QBCore.Shared.Gangs[gang].label))
+            TriggerClientEvent("QBCore:Notify", source, string.format("%s Meghívott egy bandába", GetPlayerName(id)))
+            TriggerClientEvent("QBCore:Notify", id, string.format("%s meghívtad a bandádba %s", GetPlayerName(source), QBCore.Shared.Gangs[gang].label))
         else
-            TriggerClientEvent("QBCore:Notify", source, "This player is not online", "error")
+            TriggerClientEvent("QBCore:Notify", source, "Ne elérhető ez a játékos", "error")
         end
     else
-        TriggerClientEvent("QBCore:Notify", source, "You are not the leader of this gang", "error")
+        TriggerClientEvent("QBCore:Notify", source, "Te nem vagy leader", "error")
     end
 end)
 
-QBCore.Commands.Add("removegang", "Remove a player from your gang", {{name = "ID", help = "Player ID"}}, true, function(source, args)
+QBCore.Commands.Add("removegang", "Játékos kidobása a bandábol", {{name = "ID", help = "Player ID"}}, true, function(source, args)
     local Player = QBCore.Functions.GetPlayer(source)
     local gang = Player.PlayerData.gang.name
 
     if gang == "none" then 
-        return TriggerClientEvent("QBCore:Notify", source, "You are not in a gang", "error")
+        TriggerClientEvent("QBCore:Notify", source, "Te nem vagy bandában", "error")
+        return 
     end
     if Config["GangLeaders"][gang] ~= nil and has_value(Config["GangLeaders"][gang], Player.PlayerData.citizenid) then
         local id = tonumber(args[1])
@@ -86,12 +86,12 @@ QBCore.Commands.Add("removegang", "Remove a player from your gang", {{name = "ID
         local OtherPlayer = QBCore.Functions.GetPlayer(id)
         if OtherPlayer ~= nil then
             OtherPlayer.Functions.SetGang("none")
-            TriggerClientEvent("QBCore:Notify", source, ("%s has been removed from your gang"):format(GetPlayerName(id)))
-            TriggerClientEvent("QBCore:Notify", id, ("%s has removed you from %s"):format(GetPlayerName(source), QBCore.Shared.Gangs[gang].label))
+            TriggerClientEvent("QBCore:Notify", source, string.format("%s ki lett dobva a bandádból", GetPlayerName(id)))
+            TriggerClientEvent("QBCore:Notify", id, string.format("%s kidobott téged a bandábol %s", GetPlayerName(source), QBCore.Shared.Gangs[gang].label))
         else
-            TriggerClientEvent("QBCore:Notify", source, "This player is not online", "error")
+            TriggerClientEvent("QBCore:Notify", source, "Ez a játékos nem elrhető", "error")
         end
     else
-        TriggerClientEvent("QBCore:Notify", source, "You are not the leader of this gang", "error")
+        TriggerClientEvent("QBCore:Notify", source, "Te nem vagy leader", "error")
     end
 end)

@@ -4,7 +4,7 @@ Citizen.CreateThread(
         if vRaw then
             local v = json.decode(vRaw)
             PerformHttpRequest(
-                "https://raw.githubusercontent.com/Mojito-Fivem/qb-gangs/main/version.json",
+                "https://raw.githubusercontent.com/drazoxXD/qb-gangs-create-gang-in-game/main/version.json",
                 function(code, res, headers)
                     if code == 200 then
                         local rv = json.decode(res)
@@ -13,8 +13,8 @@ Citizen.CreateThread(
                                 ([[^1
 -----------------------------------------------
 	qb-gangs
-	UPDATE: %s AVAILABLE
-	CHANGELOG: %s
+	Frissítés: %s ELRÉHETŐ
+	Változtatások: %s
 -----------------------------------------------
 									^0]]):format(
                                     rv.version,
@@ -23,7 +23,7 @@ Citizen.CreateThread(
                             )
                         end
                     else
-                        print("^1[qb-gangs]:^0 Unable to check version. The repository may have been moved, restructured or deleted. Please check github's status if there is a problem.")
+                        print("^1[qb-gangs]:^0 Nem lehet ellenőrizni a verziót. Az adattárat áthelyezték, átstrukturálták vagy törölték. Kérjük, ellenőrizze a github állapotát, ha probléma van.")
                     end
                 end,
                 "GET"

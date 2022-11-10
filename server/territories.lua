@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 function checkGroup(table, val)
     for k, v in pairs(table) do
         if val == v.label then
@@ -35,7 +36,6 @@ AddEventHandler("qb-gangs:server:updateterritories", function(zone, inside)
     local Job = Player.PlayerData.job
 
     local Territory = Zones["Territories"][zone]
-
     if Territory ~= nil then
         -- If they're not in a gang or they're not a cop just ignore them
         if Gang.name ~= "none" then
@@ -59,6 +59,7 @@ AddEventHandler("qb-gangs:server:updateterritories", function(zone, inside)
             else
                 removeGroup(Territory.occupants, Gang.label)
             end
+            Print('[Területek]: Frissítve a '..zone.. ' zóna!')
         elseif Job.name == "police" then
             if inside then
                 if not checkGroup(Territory.occupants, "Police") then
@@ -75,6 +76,7 @@ AddEventHandler("qb-gangs:server:updateterritories", function(zone, inside)
                     else
                         Territory.winner = "Police"
                         TriggerClientEvent("qb-gangs:client:updateblips", source, zone, "Police")
+                        Print('[Területek]: Frissítve a '..zone.. ' zóna!(LSPD)')
                     end
                 end
             else
@@ -103,12 +105,3 @@ QBCore.Functions.CreateCallback("qb-gangs:server:getstatus", function(source, cb
     cb(status, gang, score)
 end)
 
-if Zones["Config"].debug then
-    Citizen.CreateThread(function()
-        while true do
-            Citizen.Wait(5000)
-
-            print("Zone 1 Occupants: "..json.encode(Zones["Territories"][1].occupants))
-        end
-    end)
-end

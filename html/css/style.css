@@ -40,16 +40,15 @@ body {
 
 #gang-info  {
   position: absolute;
-  left: 70vh;
-
+  left: 80vh;
+top: 990px;
   padding: 0.4rem 1rem 1rem 1rem;
   text-align: center;
 
   display: none;
   width: 200px;
-  height: 70px;
+  height: 90px;
 
-  background-color: cornflowerblue;
+  background-color: rgb(21, 25, 32);
   color: white;
-  border-bottom: 4px solid blue
 }

@@ -1,10 +1,10 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 Config = {}
 
-CreateThread(function()
+Citizen.CreateThread(function()
     while QBCore == nil do
         TriggerEvent("QBCore:GetObject", function(obj) QBCore = obj end)
-        Wait(100) 
+        Citizen.Wait(100) 
     end
 
     QBCore.Functions.TriggerCallback("qb-gangs:server:FetchConfig", function(gangs)
@@ -47,9 +47,9 @@ end)
 
 local currentAction = "none"
 
-CreateThread(function()
+Citizen.CreateThread(function()
     while true do
-        Wait(0)
+        Citizen.Wait(0)
         if isLoggedIn and PlayerGang.name ~= "none" then
         	if Config.Gangs[PlayerGang.name] ~= nil then
 	            v = Config.Gangs[PlayerGang.name]["Stash"]
@@ -61,25 +61,25 @@ CreateThread(function()
 	            if stashdist < 5.0 then
 	                DrawMarker(2, v["coords"].x, v["coords"].y, v["coords"].z - 0.2 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.2, 0.15, 200, 200, 200, 222, false, false, false, true, false, false, false)
 	                if stashdist < 1.5 then
-	                    QBCore.Functions.DrawText3D(v["coords"].x, v["coords"].y, v["coords"].z, "[~g~E~w~] - Stash")
+	                    QBCore.Functions.DrawText3D(v["coords"].x, v["coords"].y, v["coords"].z, "[~g~E~w~] - Tároló")
 	                    currentAction = "stash"
 	                elseif stashdist < 2.0 then
-	                    QBCore.Functions.DrawText3D(v["coords"].x, v["coords"].y, v["coords"].z, "Stash")
+	                    QBCore.Functions.DrawText3D(v["coords"].x, v["coords"].y, v["coords"].z, "Tároló")
 	                    currentAction = "none"
 	                end
 	            else
-	                Wait(1000)
+	                Citizen.Wait(1000)
 	            end
 	        end
         else
-            Wait(2500)
+            Citizen.Wait(2500)
         end
     end
 end)
 
-CreateThread(function()
+Citizen.CreateThread(function()
     while true do
-        Wait(0)
+        Citizen.Wait(0)
         if isLoggedIn and PlayerGang.name ~= "none" then
         	if Config.Gangs[PlayerGang.name] ~= nil then
 	            v = Config.Gangs[PlayerGang.name]["VehicleSpawner"]
@@ -89,22 +89,22 @@ CreateThread(function()
 	            vehdist = #(pos - vector3(v["coords"].x, v["coords"].y, v["coords"].z))
 
 	            if vehdist < 5.0 then
-	                DrawMarker(2, v["coords"].x, v["coords"].y, v["coords"].z - 0.2 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.2, 0.15, 200, 200, 200, 222, false, false, false, true, false, false, false)
+	                DrawMarker(2, v["coords"].x, v["coords"].y, v["coords"].z - 0.2 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.2, 0.15, 10, 50, 200, 222, false, false, false, true, false, false, false)
 	                if vehdist < 1.5 then
-	                    QBCore.Functions.DrawText3D(v["coords"].x, v["coords"].y, v["coords"].z, "[~g~E~w~] - Garage")
+	                    QBCore.Functions.DrawText3D(v["coords"].x, v["coords"].y, v["coords"].z, "[~g~E~w~] - Garázs")
 	                    currentAction = "garage"
 	                elseif vehdist < 2.0 then
-	                    QBCore.Functions.DrawText3D(v["coords"].x, v["coords"].y, v["coords"].z, "Garage")
+	                    QBCore.Functions.DrawText3D(v["coords"].x, v["coords"].y, v["coords"].z, "Garázs")
 	                    currentAction = "none"
 	                end
 	                
 	                Menu.renderGUI()
 	            else
-	                Wait(1000)
+	                Citizen.Wait(1000)
 	            end
 	        end
         else
-            Wait(2500)
+            Citizen.Wait(2500)
         end
     end
 end)
@@ -130,13 +130,13 @@ end, false)
 TriggerEvent("chat:removeSuggestion", "/+GangInteract")
 TriggerEvent("chat:removeSuggestion", "/-GangInteract")
 
-RegisterKeyMapping("+GangInteract", "Interaction for gang script", "keyboard", "e")
+RegisterKeyMapping("+GangInteract", "Banda menü interakció", "keyboard", "e")
 
 function GangGarage()
     MenuTitle = "Garage"
     ClearMenu()
-    Menu.addButton("Vehicle", "VehicleList", nil)
-    Menu.addButton("Close menu", "closeMenuFull", nil) 
+    Menu.addButton("Járművek", "VehicleList", nil)
+    Menu.addButton("Menü bezárása", "closeMenuFull", nil) 
 end
 
 function VehicleList(isDown)
@@ -144,7 +144,7 @@ function VehicleList(isDown)
     ClearMenu()
     Vehicles = Config.Gangs[PlayerGang.name]["VehicleSpawner"]["vehicles"]
     for k, v in pairs(Vehicles) do
-        Menu.addButton(Vehicles[k], "TakeOutVehicle", k, "Garage", " Engine: 100%", " Body: 100%", " Fuel: 100%")
+        Menu.addButton(Vehicles[k], "TakeOutVehicle", k, "Garázs", " Motor: 100%", " Karosszéria: 100%", " Üzemanyag: 100%")
     end
         
     Menu.addButton("Return", "GangGarage",nil)
@@ -159,7 +159,7 @@ function TakeOutVehicle(vehicleInfo)
         SetVehicleCustomPrimaryColour(veh, primary.r, primary.g, primary.b)
         SetVehicleCustomSecondaryColour(veh, secondary.r, secondary.g, secondary.b)
         SetEntityHeading(veh, coords.h)
-        exports['LegacyFuel']:SetFuel(veh, 100.0)
+        exports['ps-fuel']:SetFuel(veh, 100.0)
         closeMenuFull()
         TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
         TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))

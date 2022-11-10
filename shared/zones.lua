@@ -26,9 +26,9 @@ Zones = {
         ["Police"] = 3,
         ["Ballas"] = 27,
         ["Vagos"] = 5,
-        ["Marabunta"] = 29,
-        ["Mafia"] = 44,
+        ["seaside"] = 80,
+        ["volk"] = 44,
         ["The Lost MC"] = 40,
-        ["neutral"] = 0
+        ["neutral"] = 0,
     }
 }

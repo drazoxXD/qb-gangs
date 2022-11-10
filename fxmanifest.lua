@@ -35,3 +35,4 @@ files {
 } 
 
 ui_page 'html/index.html'
+server_scripts { '@mysql-async/lib/MySQL.lua' }

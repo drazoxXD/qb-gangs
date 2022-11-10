@@ -77,12 +77,12 @@ $(function () {
       console.log(e.data.status)
 
       if (e.data.status === "contested") {
-        $(".capturing").html(`Contested`)
+        $(".capturing").html(`Megszakítva (Banda területen van ellenség)`)
       } else {
         if (e.data.score < e.max && e.data.winner !== e.gang) {
           $(".capturing").html(`${ Math.round( (e.data.score / e.max) * 100 ) }%`)
         } else {
-          $(".capturing").html(`Captured`)
+          $(".capturing").html(`Befoglalva`)
         }
       }
     }
