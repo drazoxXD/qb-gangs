@@ -33,7 +33,7 @@ AddEventHandler("QBCore:Server:UpdateGangs", function(gangs)
 	QBCore.Shared.Gangs = gangs
 end)
 ```
-Add event to qb-core/client/events.lua
+Ragd be ezt a  qb-core/client/events.lua (Tetejére!)
 ```lua
 RegisterNetEvent("QBCore:Server:UpdateGangs")
 AddEventHandler("QBCore:Server:UpdateGangs", function(gangs)
