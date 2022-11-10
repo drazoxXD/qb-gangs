@@ -10,13 +10,15 @@ Minden bandának van egy rejtekhelye és egy listája azokról a járművekről,
 
 
 </details>
-# Drazox Figyelmeztetése
-Ha valamit megjavítottál vagy készítettél ehez a scripthez küld be ide mint egy Pull Request!
-Sokat számít mindenkinek!
+
 
 # Repo figyelmeztető
 A címkézett kiadások az erőforrás „stabil” verziójának számítanak, a fő ág és mások kísérleti vagy befejezetlen kódot tartalmazhatnak, amellyel problémákba ütközhet.
 Ez a repo 1 éves, az eredeti QBCore-hoz készült, és nem tervezem, hogy kompatibilis legyen az új verziókkal, mivel a karbantartók úgy döntöttek, hogy nem teszik visszafelé kompatibilissé.
+
+# Drazox figyelmeztetése
+Ha valamit megjavítottál vagy készítettél ehez a scripthez küld be ide mint egy Pull Request!
+Sokat számít mindenkinek!
 
 
 # Telepítés
