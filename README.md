@@ -1,44 +1,31 @@
-# 🔪 **qb-gangs**
-Gangs for QB-Core with Gang Support instead of Jobs, supports infinately scaling gangs. Super optimised down to 0.01ms idle with a gang peaking at 0.04ms when drawing or inside of a territory zone, 0.00ms at idle as a civilian.
+# 🔪 **qb-gangs (Drazox)**
+Bandák qbcore-ra a job-ok helyett a bandatámogatással, támogatja a végtelenül skálázó bandákat. Szuper 0,01 ms alapjárati optimalizált, ha bandában vagy akkor 0,04 ms-el tetőzik cp-kel vagy egy területi zónán belül, 0,00 ms alapjáraton civilként.
 
-# Features:
+# Jellemzők:
 
-Each gang has a stash and a list of vehicles they can get out from their garage. Config is fully customisable for each gang. Gangs can be created in-game with the configurator and bosses and territories can be configured manually.
+Minden bandának van egy rejtekhelye és egy listája azokról a járművekről, amelyeket kiszállhatnak a garázsból. A konfiguráció teljesen testreszabható az egyes bandák számára. Bandák hozhatók létre a játékban a konfigurátorral, a főnökök és a területek pedig manuálisan konfigurálhatók.
 
-# Changelog
+# Banda létrehozása
+- A banda létrehozásának megkezdéséhez használja a „/creategang [név] [leírás]” parancsot a folyamat elindításához, használja a „/placestash” paranccsal a banda rejtekhelyét és a „/placegarage” paranccsal a banda garázsát a játékon belüli konfigurátor segítségével. a banda színei és a járműlista, ha mindkettőt elhelyezte, használhatja a `/finishgang'-t a befejezéshez, vagy a `/cancelgang'-t bármikor megszakíthatja a folyamatot.
 
-<details open>
-	<summary> <b>New Version 2.5 Territories Update </b> </summary> <br>
-
-This update brings gang territories to the map using PolyZones and server side calculations to provide synchronized gang turfs to fight over. At the moment the serve no over purpose, if you have suggestions open an issue or a PR.
-</details>
-
-<details>
-<summary> <b>New Version 2.4 Gang Boss Update </b> </summary> <br>
-
-- Gang bosses can now be configured in `shared/leaders.lua` and they can hire/fire new members
-</details>
-
-<details>
-<summary> <b> New Version 2.3 In-Game Gang Configurator </b> </summary> <br>
-
-- To begin creating a gang use `/creategang [name] [description]` to start the process, use `/placestash` to place the gang stash and `/placegarage` to place the gang garage using the In-Game configurator to chose the gang colours and vehicle list, when you have placed both you can use `/finishgang` to complete it or use `/cancelgang` at any time to abort the process.
-
-![Preview](https://i.imgur.com/vVr0n0W.jpg)
 
 </details>
+# Drazox Figyelmeztetése
+Ha valamit megjavítottál vagy készítettél ehez a scripthez küld be ide mint egy Pull Request!
+Sokat számít mindenkinek
 
-# Repository Disclaimer
-Tagged releases are considered 'stable' version of this resource, the master branch and others may contain experimental or unfinished code that you may run into problems with.
-This repo is 1 year old, it was built for the original QBCore and I have no plans on making it compatible with the new versions since the maintainers have decided not to make it backwards compatible.
+# Repo figyelmeztető
+A címkézett kiadások az erőforrás „stabil” verziójának számítanak, a fő ág és mások kísérleti vagy befejezetlen kódot tartalmazhatnak, amellyel problémákba ütközhet.
+Ez a repo 1 éves, az eredeti QBCore-hoz készült, és nem tervezem, hogy kompatibilis legyen az új verziókkal, mivel a karbantartók úgy döntöttek, hogy nem teszik visszafelé kompatibilissé.
 
-# Installation
-Add Gangs into qb-core/shared.lua like this:
+
+# Telepítés
+Ezt tagd be a  qb-core/shared/gangs.lua like így:
 ```lua
 QBShared.Gangs = json.decode(LoadResourceFile("qb-gangs", "gangs.json"))
 
 ```
-Add event to qb-core/server/events.lua
+Ragd be ezt a qb-core/server/events.lua
 ```lua
 RegisterServerEvent("QBCore:Server:UpdateGangs")
 AddEventHandler("QBCore:Server:UpdateGangs", function(gangs)
@@ -55,7 +42,8 @@ AddEventHandler("QBCore:Server:UpdateGangs", function(gangs)
 end)
 ```
 
-To enable lockable doors for gangs, you need to modify qb-doorlocks/client/main.lua line 217 like this:
+A zárható ajtók engedélyezéséhez a bandák számára módosítania kell qb-doorlocks/client/main.lua  217 sorban.
+Valahogy így:
 ```lua
 function IsAuthorized(doorID)
 	local PlayerData = QBCore.Functions.GetPlayerData()
@@ -75,7 +63,7 @@ function IsAuthorized(doorID)
 	return false
 end
 ```
-Add Citizenids for gang leaders for each gang into server/config.lua like this:
+Adja hozzá az egyes bandákhoz tartozó Citizenideket a bandavezetők számára a server/config.lua fájlhoz, így:
 ```lua
 Config = {
 	["GangLeaders"] = {
@@ -99,7 +87,7 @@ Config = {
 }
 ```
 
-# Interiors used:
+# Használt ineriorok:
 
 - Ballas Interior - https://github.com/TRANEdAK1nG/Ballas-Interior
 - TheFamily Interior - https://github.com/TRANEdAK1nG/Famillies-Interior
@@ -107,4 +95,5 @@ Config = {
 - Marabunta Interior - https://github.com/TRANEdAK1nG/Marabunta-Interior
 
 # License
+Mojito Fivem & Dhruvpamnani Are the devs i am just adding fixes and making it hungarian friendly
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
