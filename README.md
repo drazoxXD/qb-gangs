@@ -12,7 +12,7 @@ Minden bandának van egy rejtekhelye és egy listája azokról a járművekről,
 </details>
 # Drazox Figyelmeztetése
 Ha valamit megjavítottál vagy készítettél ehez a scripthez küld be ide mint egy Pull Request!
-Sokat számít mindenkinek
+Sokat számít mindenkinek!
 
 # Repo figyelmeztető
 A címkézett kiadások az erőforrás „stabil” verziójának számítanak, a fő ág és mások kísérleti vagy befejezetlen kódot tartalmazhatnak, amellyel problémákba ütközhet.
