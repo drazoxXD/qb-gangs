@@ -1,4 +1,8 @@
 # 🔪 **qb-gangs (Drazox)**
+
+Ez a script már rég nem volt fejlesztve de egy srác mégis folytatta és én pedig magyarosítom mindenkinek! Kellemes használatot!
+
+
 Bandák qbcore-ra a job-ok helyett a bandatámogatással, támogatja a végtelenül skálázó bandákat. Szuper 0,01 ms alapjárati optimalizált, ha bandában vagy akkor 0,04 ms-el tetőzik cp-kel vagy egy területi zónán belül, 0,00 ms alapjáraton civilként.
 
 # Jellemzők:
